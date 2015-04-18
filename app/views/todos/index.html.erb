@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Todos</h1>
+<%=form_tag todos_path, method:"get" do%>
+Event status <%=text_field_tag :status%>
+<%=submit_tag "search"%>
+<%end%>
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= todo.event %></td>
+        <td><%= todo.status %></td>
+        <td>
+        <td><% if todo.status == true %>
+        <%= button_to 'not done', done_todo_path(todo), method: :post %>
+        <%else%>
+        <%= button_to 'done', done_todo_path(todo), method: :post %>
+        <%end%>
+
+        <td><%= link_to 'Show', todo %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Todo', new_todo_path %>
